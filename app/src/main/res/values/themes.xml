@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.LovalPlan" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Tema de ventana (antes de que Compose dibuje). Los colores reales de la UI
+         estan en core/designsystem/theme. -->
+    <style name="Theme.LovalPlan" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/night</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
 </resources>
