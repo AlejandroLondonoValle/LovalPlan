@@ -1,10 +1,15 @@
+# Android Studio / Gradle
 *.iml
 .gradle
 /local.properties
 /.idea
 .DS_Store
 /build
+/app/build
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+.kotlin
+
+# Configuracion de Firebase propia de cada desarrollador (ver README)
+app/google-services.json
