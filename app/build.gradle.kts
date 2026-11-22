@@ -72,6 +72,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.12.0")
 
+    // ---- Nuevo en LovalPlan: inicio de sesion con Google (Credential Manager) ----
+    // Versiones indicadas en la documentacion de Firebase Auth para Android.
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+
     // ---- Pruebas unitarias (reglas del dominio) ----
     testImplementation("junit:junit:4.13.2")
 }
