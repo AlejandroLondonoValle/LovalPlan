@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.lovaltech.lovalplan.core.database.AppDatabase
 import com.lovaltech.lovalplan.feature.profile.data.local.ProfileDao
+import com.lovaltech.lovalplan.feature.progress.data.local.CompletionDao
 import com.lovaltech.lovalplan.feature.schedule.data.local.EventDao
 import dagger.Module
 import dagger.Provides
@@ -21,6 +22,9 @@ object DatabaseModule {
 
     @Provides
     fun eventDao(database: AppDatabase): EventDao = database.eventDao()
+
+    @Provides
+    fun completionDao(database: AppDatabase): CompletionDao = database.completionDao()
 
     @Provides
     fun profileDao(database: AppDatabase): ProfileDao = database.profileDao()
