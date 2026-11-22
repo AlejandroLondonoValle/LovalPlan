@@ -2,6 +2,10 @@ package com.lovaltech.lovalplan.core.di
 
 import com.lovaltech.lovalplan.feature.auth.data.repository.AuthRepositoryImpl
 import com.lovaltech.lovalplan.feature.auth.domain.repository.AuthRepository
+import com.lovaltech.lovalplan.feature.profile.data.repository.ProfileRepositoryImpl
+import com.lovaltech.lovalplan.feature.profile.domain.repository.ProfileRepository
+import com.lovaltech.lovalplan.feature.schedule.data.repository.ScheduleRepositoryImpl
+import com.lovaltech.lovalplan.feature.schedule.domain.repository.ScheduleRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,4 +18,10 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
     @Binds @Singleton
     abstract fun bindAuth(impl: AuthRepositoryImpl): AuthRepository
+
+    @Binds @Singleton
+    abstract fun bindSchedule(impl: ScheduleRepositoryImpl): ScheduleRepository
+
+    @Binds @Singleton
+    abstract fun bindProfile(impl: ProfileRepositoryImpl): ProfileRepository
 }
