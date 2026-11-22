@@ -6,7 +6,9 @@ import com.lovaltech.lovalplan.feature.profile.data.repository.ProfileRepository
 import com.lovaltech.lovalplan.feature.profile.domain.repository.ProfileRepository
 import com.lovaltech.lovalplan.feature.progress.data.repository.ProgressRepositoryImpl
 import com.lovaltech.lovalplan.feature.progress.domain.repository.ProgressRepository
+import com.lovaltech.lovalplan.feature.reminder.data.AlarmReminderScheduler
 import com.lovaltech.lovalplan.feature.schedule.data.repository.ScheduleRepositoryImpl
+import com.lovaltech.lovalplan.feature.schedule.domain.reminder.ReminderScheduler
 import com.lovaltech.lovalplan.feature.schedule.domain.repository.ScheduleRepository
 import dagger.Binds
 import dagger.Module
@@ -29,4 +31,7 @@ abstract class RepositoryModule {
 
     @Binds @Singleton
     abstract fun bindProfile(impl: ProfileRepositoryImpl): ProfileRepository
+
+    @Binds
+    abstract fun bindReminderScheduler(impl: AlarmReminderScheduler): ReminderScheduler
 }
