@@ -4,6 +4,8 @@ import com.lovaltech.lovalplan.feature.auth.data.repository.AuthRepositoryImpl
 import com.lovaltech.lovalplan.feature.auth.domain.repository.AuthRepository
 import com.lovaltech.lovalplan.feature.profile.data.repository.ProfileRepositoryImpl
 import com.lovaltech.lovalplan.feature.profile.domain.repository.ProfileRepository
+import com.lovaltech.lovalplan.feature.progress.data.repository.ProgressRepositoryImpl
+import com.lovaltech.lovalplan.feature.progress.domain.repository.ProgressRepository
 import com.lovaltech.lovalplan.feature.schedule.data.repository.ScheduleRepositoryImpl
 import com.lovaltech.lovalplan.feature.schedule.domain.repository.ScheduleRepository
 import dagger.Binds
@@ -21,6 +23,9 @@ abstract class RepositoryModule {
 
     @Binds @Singleton
     abstract fun bindSchedule(impl: ScheduleRepositoryImpl): ScheduleRepository
+
+    @Binds @Singleton
+    abstract fun bindProgress(impl: ProgressRepositoryImpl): ProgressRepository
 
     @Binds @Singleton
     abstract fun bindProfile(impl: ProfileRepositoryImpl): ProfileRepository
