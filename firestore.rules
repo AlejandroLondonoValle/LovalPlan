@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Solo el dueno del UID puede leer/escribir sus datos.
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // ---------- Actividades del horario ----------
+    match /users/{uid}/events/{eventId} {
+      function validEvent() {
+        let d = request.resource.data;
+        return d.keys().hasOnly([
+            'id', 'title', 'description', 'category', 'recurrence', 'daysOfWeek',
+            'dateEpochDay', 'startMinute', 'endMinute', 'reminderMinutes',
+            'updatedAt', 'isDeleted'
+          ])
+          && d.id == eventId
+          && d.title is string && d.title.size() > 0 && d.title.size() <= 60
+          && d.description is string && d.description.size() <= 300
+          && d.category in ['STUDY', 'WORK', 'EXERCISE', 'PERSONAL', 'HOME', 'OTHER']
+          && d.recurrence in ['WEEKLY', 'ONCE']
+          && d.daysOfWeek is list && d.daysOfWeek.size() <= 7
+          && (d.dateEpochDay == null || d.dateEpochDay is int)
+          && d.startMinute is int && d.startMinute >= 0 && d.startMinute < 1440
+          && d.endMinute is int && d.endMinute > d.startMinute && d.endMinute < 1440
+          && d.reminderMinutes is int && d.reminderMinutes >= 0 && d.reminderMinutes <= 120
+          && d.updatedAt is int
+          && d.isDeleted is bool;
+      }
+      allow read: if isOwner(uid);
+      allow create, update: if isOwner(uid) && validEvent();
+      allow delete: if isOwner(uid);
+    }
+
+    // ---------- Historial de actividades cumplidas ----------
+    match /users/{uid}/completions/{completionId} {
+      function validCompletion() {
+        let d = request.resource.data;
+        return d.keys().hasOnly(['id', 'eventId', 'dayEpoch', 'completedAt', 'xp', 'startMinute'])
+          && d.id == completionId
+          && d.eventId is string
+          && d.dayEpoch is int
+          && d.completedAt is int
+          && d.xp is int && d.xp > 0 && d.xp <= 40
+          && d.startMinute is int;
+      }
+      allow read: if isOwner(uid);
+      allow create, update: if isOwner(uid) && validCompletion();
+      allow delete: if false;   // el historial no se borra
+    }
+  }
+}
