@@ -7,19 +7,11 @@ Misma arquitectura que InventarioApp: **MVVM + Room + Hilt + Navigation 3 + Fire
 - Tema: modo oscuro con azul de marca `#005EDC` y el logo del dragón de LovalTech.
 - Versiones: las mismas que ya compilaron en tu Android Studio (AGP 9.5.0, Gradle 9.6.0, Kotlin 2.4.20, KSP 2.3.12).
 
-## 1. Abrir y correr
+## 1. Abrir y correr (sin Firebase todavía)
 
-1. Clona el repositorio y en Android Studio: **File → Open → carpeta `LovalPlan`**.
-2. Copia **tu** `google-services.json` en `app/` (ver sección 2 y la nota de abajo). Sin ese archivo el plugin de Google Services no deja compilar.
-3. Espera el Gradle Sync y corre en un emulador o celular (Android 8.0+).
-
-### ¿Por qué `google-services.json` no está en el repositorio?
-
-El archivo está excluido en `.gitignore` a propósito:
-
-- **Es configuración de un proyecto Firebase concreto**: trae el ID del proyecto, la API key de Android y el cliente OAuth de Google Sign-In. Quien clone el repo debe usar **su propio** proyecto Firebase, con su propio SHA-1 y sus propias reglas.
-- **Evita exponer datos del proyecto en un repositorio público**: la API key de Firebase no es una contraseña (la seguridad real la dan las reglas de Firestore y Authentication), pero publicarla facilita abusos de cuota, y GitHub la marca como secreto expuesto.
-- **Cada máquina tiene un SHA-1 distinto**: el cliente OAuth depende de la huella del certificado de depuración de cada desarrollador, así que un JSON compartido no le serviría a otro equipo para iniciar sesión con Google.
+1. Descomprime y en Android Studio: **File → Open → carpeta `LovalPlan`**. Espera el Gradle Sync.
+2. Corre en un emulador o celular (Android 8.0+). Entra como **invitado**.
+3. Con el `google-services.json` de relleno todo funciona en local (horario, alarmas, XP, logros). Sincronizar dirá "Sin conexión".
 
 ## 2. Configurar Firebase (recomendado: un proyecto nuevo "LovalPlan")
 
@@ -27,7 +19,7 @@ El archivo está excluido en `.gitignore` a propósito:
 2. **Agregar app Android** con el paquete exacto `com.lovaltech.lovalplan`.
 3. **SHA-1 (solo para Google)**: en Android Studio abre la pestaña **Gradle** (lateral derecho) → `LovalPlan › app › Tasks › android › signingReport` (o en la Terminal: `gradlew signingReport`). Copia el **SHA1** de la variante `debug` y pégalo en *Configuración del proyecto → Tus apps → Agregar huella digital*.
 4. **Authentication → Sign-in method**: habilita **Anónimo** y **Google** (elige tu correo de asistencia y guarda).
-5. **Descarga `google-services.json` DESPUÉS de los pasos 3 y 4** (así trae el cliente OAuth) y colócalo en `app/google-services.json`.
+5. **Descarga `google-services.json` DESPUÉS de los pasos 3 y 4** (así trae el cliente OAuth) y reemplaza `app/google-services.json`.
 6. **Firestore Database → Crear** (Standard, modo producción) → pestaña **Reglas** → pega `firestore.rules` → **Publicar**.
 7. Sync Project with Gradle Files y vuelve a correr.
 
